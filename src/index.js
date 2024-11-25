@@ -1,200 +1,203 @@
-import './style.css';
-import { Calculator } from './calculator.js';
+import './style.css'; // Подключение стилей
+import './modules/app.js'; // Основной модуль приложения
 
-const calculator = new Calculator();
-const display = document.querySelector('.display');
-const numberButtons = document.querySelectorAll('.number');
-const operatorButtons = document.querySelectorAll('.operator');
-const clearButton = document.querySelector('.clear_btn');
-const resultButton = document.getElementById('result');
-const commaButton = document.getElementById('comma');
-const percentButton = document.getElementById('percent');
+// import './style.css';
+// import { Calculator } from './calculator.js';
 
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-const toggleSignButton = document.getElementById('toggle-sign');
+// const calculator = new Calculator();
+// const display = document.querySelector('.display');
+// const numberButtons = document.querySelectorAll('.number');
+// const operatorButtons = document.querySelectorAll('.operator');
+// const clearButton = document.querySelector('.clear_btn');
+// const resultButton = document.getElementById('result');
+// const commaButton = document.getElementById('comma');
+// const percentButton = document.getElementById('percent');
 
-let firstValue = '';
-let secondValue = '';
-let currentOperator = '';
-let result = null;
-let isSecondValueInput = false;
-let finish = false;
+// const themeToggle = document.getElementById('theme-toggle');
+// const body = document.body;
+// const toggleSignButton = document.getElementById('toggle-sign');
 
-const updateDisplay = (value) => {
-  display.value = value || '0';
-};
+// let firstValue = '';
+// let secondValue = '';
+// let currentOperator = '';
+// let result = null;
+// let isSecondValueInput = false;
+// let finish = false;
 
-const resetCalculator = () => {
-  firstValue = '';
-  secondValue = '';
-  currentOperator = '';
-  result = null;
-  isSecondValueInput = false;
-  finish = false;
-  updateDisplay();
-};
+// const updateDisplay = (value) => {
+//   display.value = value || '0';
+// };
 
-numberButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const key = button.textContent;
+// const resetCalculator = () => {
+//   firstValue = '';
+//   secondValue = '';
+//   currentOperator = '';
+//   result = null;
+//   isSecondValueInput = false;
+//   finish = false;
+//   updateDisplay();
+// };
 
-    if (finish) {
-      resetCalculator();
-    }
+// numberButtons.forEach((button) => {
+//   button.addEventListener('click', () => {
+//     const key = button.textContent;
 
-    if (!isSecondValueInput) {
-      firstValue += key;
-      updateDisplay(firstValue);
-    } else {
-      secondValue += key;
-      updateDisplay(secondValue);
-    }
-  });
-});
+//     if (finish) {
+//       resetCalculator();
+//     }
 
-operatorButtons.forEach((button) => {
-  const operator = button.textContent;
+//     if (!isSecondValueInput) {
+//       firstValue += key;
+//       updateDisplay(firstValue);
+//     } else {
+//       secondValue += key;
+//       updateDisplay(secondValue);
+//     }
+//   });
+// });
 
-  button.addEventListener('click', () => {
-    if (operator === '-' && firstValue === '' && !isSecondValueInput) {
-      firstValue = '-';
-      updateDisplay(firstValue);
-      return;
-    }
+// operatorButtons.forEach((button) => {
+//   const operator = button.textContent;
 
-    if (operator === '-' && isSecondValueInput && secondValue === '') {
-      secondValue = '-';
-      updateDisplay(secondValue);
-      return;
-    }
+//   button.addEventListener('click', () => {
+//     if (operator === '-' && firstValue === '' && !isSecondValueInput) {
+//       firstValue = '-';
+//       updateDisplay(firstValue);
+//       return;
+//     }
 
-    if (isSecondValueInput && secondValue !== '') {
-      calculate();
-    }
+//     if (operator === '-' && isSecondValueInput && secondValue === '') {
+//       secondValue = '-';
+//       updateDisplay(secondValue);
+//       return;
+//     }
 
-    currentOperator = operator;
+//     if (isSecondValueInput && secondValue !== '') {
+//       calculate();
+//     }
 
-    if (result !== null && !isSecondValueInput) {
-      firstValue = result.toString();
-    }
+//     currentOperator = operator;
 
-    isSecondValueInput = true;
-    finish = false;
-    updateDisplay(currentOperator);
-  });
-});
+//     if (result !== null && !isSecondValueInput) {
+//       firstValue = result.toString();
+//     }
 
-percentButton.addEventListener('click', () => {
-  if (firstValue !== '' && secondValue === '' && currentOperator === '') {
-    firstValue = (parseFloat(firstValue) / 100).toString();
-    updateDisplay(`${firstValue}`);
-  } else if (firstValue !== '' && secondValue !== '') {
-    updateDisplay(`${secondValue}%`);
+//     isSecondValueInput = true;
+//     finish = false;
+//     updateDisplay(currentOperator);
+//   });
+// });
 
-    if (currentOperator === '×' || currentOperator === '÷') {
-      secondValue = (parseFloat(secondValue) / 100).toString();
-    } else {
-      const percentValue = calculator.percentage(
-        parseFloat(firstValue),
-        parseFloat(secondValue),
-      );
-      secondValue = percentValue.toString();
-    }
-  }
-});
+// percentButton.addEventListener('click', () => {
+//   if (firstValue !== '' && secondValue === '' && currentOperator === '') {
+//     firstValue = (parseFloat(firstValue) / 100).toString();
+//     updateDisplay(`${firstValue}`);
+//   } else if (firstValue !== '' && secondValue !== '') {
+//     updateDisplay(`${secondValue}%`);
 
-const calculate = () => {
-  const num1 = parseFloat(firstValue);
-  const num2 = parseFloat(secondValue);
+//     if (currentOperator === '×' || currentOperator === '÷') {
+//       secondValue = (parseFloat(secondValue) / 100).toString();
+//     } else {
+//       const percentValue = calculator.percentage(
+//         parseFloat(firstValue),
+//         parseFloat(secondValue),
+//       );
+//       secondValue = percentValue.toString();
+//     }
+//   }
+// });
 
-  switch (currentOperator) {
-    case '+':
-      result = calculator.add(num1, num2);
-      break;
-    case '-':
-      result = calculator.subtract(num1, num2);
-      break;
-    case '×':
-      result = calculator.multiply(num1, num2);
-      break;
-    case '÷':
-      if (num2 === 0) {
-        updateDisplay('Error');
-        return;
-      }
-      result = calculator.divide(num1, num2);
-      break;
-  }
+// const calculate = () => {
+//   const num1 = parseFloat(firstValue);
+//   const num2 = parseFloat(secondValue);
 
-  firstValue = result.toString();
-  secondValue = '';
-  currentOperator = '';
-  isSecondValueInput = false;
-  finish = true;
-  updateDisplay(result);
-};
+//   switch (currentOperator) {
+//     case '+':
+//       result = calculator.add(num1, num2);
+//       break;
+//     case '-':
+//       result = calculator.subtract(num1, num2);
+//       break;
+//     case '×':
+//       result = calculator.multiply(num1, num2);
+//       break;
+//     case '÷':
+//       if (num2 === 0) {
+//         updateDisplay('Error');
+//         return;
+//       }
+//       result = calculator.divide(num1, num2);
+//       break;
+//   }
 
-commaButton.addEventListener('click', () => {
-  const currentNumber = isSecondValueInput ? secondValue : firstValue;
-  if (!currentNumber.includes('.')) {
-    if (isSecondValueInput) {
-      secondValue += '.';
-      updateDisplay(secondValue);
-    } else {
-      firstValue += '.';
-      updateDisplay(firstValue);
-    }
-  }
-});
+//   firstValue = result.toString();
+//   secondValue = '';
+//   currentOperator = '';
+//   isSecondValueInput = false;
+//   finish = true;
+//   updateDisplay(result);
+// };
 
-clearButton.addEventListener('click', () => {
-  resetCalculator();
-  updateDisplay();
-});
+// commaButton.addEventListener('click', () => {
+//   const currentNumber = isSecondValueInput ? secondValue : firstValue;
+//   if (!currentNumber.includes('.')) {
+//     if (isSecondValueInput) {
+//       secondValue += '.';
+//       updateDisplay(secondValue);
+//     } else {
+//       firstValue += '.';
+//       updateDisplay(firstValue);
+//     }
+//   }
+// });
 
-toggleSignButton.addEventListener('click', () => {
-  let currentValue = isSecondValueInput ? secondValue : firstValue;
+// clearButton.addEventListener('click', () => {
+//   resetCalculator();
+//   updateDisplay();
+// });
 
-  if (currentValue !== '') {
-    const newValue = (-parseFloat(currentValue)).toString();
+// toggleSignButton.addEventListener('click', () => {
+//   let currentValue = isSecondValueInput ? secondValue : firstValue;
 
-    if (isSecondValueInput) {
-      secondValue = newValue;
-    } else {
-      firstValue = newValue;
-    }
+//   if (currentValue !== '') {
+//     const newValue = (-parseFloat(currentValue)).toString();
 
-    updateDisplay(newValue);
+//     if (isSecondValueInput) {
+//       secondValue = newValue;
+//     } else {
+//       firstValue = newValue;
+//     }
 
-    if (finish) {
-      result = parseFloat(newValue);
-      firstValue = result.toString();
-    }
-  }
-});
+//     updateDisplay(newValue);
 
-resultButton.addEventListener('click', () => {
-  if (firstValue !== '' && currentOperator !== '') {
-    if (secondValue === '' && result !== null) {
-      secondValue = firstValue;
-    }
+//     if (finish) {
+//       result = parseFloat(newValue);
+//       firstValue = result.toString();
+//     }
+//   }
+// });
 
-    calculate();
-  }
-});
+// resultButton.addEventListener('click', () => {
+//   if (firstValue !== '' && currentOperator !== '') {
+//     if (secondValue === '' && result !== null) {
+//       secondValue = firstValue;
+//     }
 
-if (localStorage.getItem('theme') === 'dark') {
-  body.classList.add('dark-theme');
-  themeToggle.checked = true;
-}
+//     calculate();
+//   }
+// });
 
-themeToggle.addEventListener('change', () => {
-  if (themeToggle.checked) {
-    body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    body.classList.remove('dark-theme');
-    localStorage.setItem('theme', 'light');
-  }
-});
+// if (localStorage.getItem('theme') === 'dark') {
+//   body.classList.add('dark-theme');
+//   themeToggle.checked = true;
+// }
+
+// themeToggle.addEventListener('change', () => {
+//   if (themeToggle.checked) {
+//     body.classList.add('dark-theme');
+//     localStorage.setItem('theme', 'dark');
+//   } else {
+//     body.classList.remove('dark-theme');
+//     localStorage.setItem('theme', 'light');
+//   }
+// });
