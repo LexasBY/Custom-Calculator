@@ -7,6 +7,7 @@ export default (env, argv) => {
   const isProduction = argv.mode === 'production';
 
   return {
+    mode: isProduction ? 'production' : 'development',
     entry: './src/index.js',
     output: {
       filename: 'main.[contenthash].js',

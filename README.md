@@ -1,8 +1,8 @@
-# Simple-Calculator
+# Custom-Calculator
 
 ## 1. Task
 
-[Google Docs Task Description](https://docs.google.com/document/d/1zpXXeSae-BlcxPKgw3DhxZA92cspVailrPYoaXSYrW8/edit?tab=t.0#heading=h.5dt3hghpa22f)
+[Google Docs Task Description](https://drive.google.com/file/d/15jVnBPXaZrjs99KOUxp4TGq6Inau6xq_/view)
 
 ## 2. How to Run the App
 
@@ -35,27 +35,29 @@
 ### 3. Project Structure
 
 ```
-simple-calculator/
+custom-calculator/
 │
-├── src/                   # Main folder containing the source files of the application
+├── src/                   # Main folder with source files
 │   ├── index.js           # Main entry point of the application
-│   ├── calculator.js      # Logic for the calculator
-│   ├── index.html         # HTML template used during the build
-│   └── styles.css         # Styles for the application
+│   ├── index.html         # HTML template
+│   ├── style.css          # Main stylesheet
+│   ├── modules/           # Folder with application modules
+│   │   ├── app.js         # Manages application events
+│   │   ├── calculator.js  # Core calculator logic
+│   │   ├── command.js     # Implementation of the Command pattern
+│   │   └── invoker.js     # Logic for handling commands
 │
-├── dist/                  # Folder created after building the application
-│   ├── index.html         # Optimized HTML file for production
-│   └── bundle.js          # Optimized JavaScript file for production
+├── dist/                  # Folder for production build
+│   ├── index.html         # Optimized HTML for production
+│   └── main.[hash].js     # Optimized JavaScript file
 │
+├── .husky/                # Pre-commit hook configuration
 ├── .eslintrc.json         # ESLint configuration
 ├── .prettierrc            # Prettier configuration
 ├── webpack.config.js      # Webpack configuration
 ├── package.json           # Project configuration
-│
-├── node_modules/          # Folder containing project dependencies
-│                          # Automatically created when installing packages using npm install
-│
-└── .husky/                # Settings for pre-commit hook to check ESLint and format code
+├── README.md              # Documentation
+├── node_modules/          # Project dependencies
 
 ```
 
@@ -83,13 +85,13 @@ The project is configured with a pre-commit hook using **Husky** and **lint-stag
 
 ### 5. Deployment
 
-The application has been successfully deployed using GitHub Pages and is available at the following address: https://lexasby.github.io/Simple-Calculator/.
+The application has been successfully deployed using GitHub Pages and is available at the following address: https://lexasby.github.io/Custom-Calculator/.
 
 ---
 
 ## 1. Задача
 
-[Описание задачи в Google Docs](https://docs.google.com/document/d/1zpXXeSae-BlcxPKgw3DhxZA92cspVailrPYoaXSYrW8/edit?tab=t.0#heading=h.5dt3hghpa22f)
+[Описание задачи в Google Docs](https://drive.google.com/file/d/15jVnBPXaZrjs99KOUxp4TGq6Inau6xq_/view)
 
 ## 2. Как запустить приложение
 
@@ -122,29 +124,30 @@ The application has been successfully deployed using GitHub Pages and is availab
 ### 3. Структура проекта
 
 ```
-simple-calculator/
+custom-calculator/
 │
-├── src/                   # Основная папка, содержащая исходные файлы приложения
+├── src/                   # Основная папка с исходными файлами
 │   ├── index.js           # Главная точка входа приложения
-│   ├── calculator.js      # Логика работы калькулятора
-│   ├── index.html         # Шаблон HTML, используемый при сборке
-│   └── styles.css         # Стили для приложения
+│   ├── index.html         # HTML-шаблон
+│   ├── style.css          # Основной файл стилей
+│   ├── modules/           # Папка с модулями приложения
+│   │   ├── app.js         # Управление событиями приложения
+│   │   ├── calculator.js  # Основная логика работы калькулятора
+│   │   ├── command.js     # Реализация паттерна Command
+│   │   └── invoker.js     # Логика обработки команд
 │
-├── dist/                  # Папка, создаваемая после сборки приложения
-│   ├── index.html         # Оптимизированный HTML-файл для production
-│   └── bundle.js          # Оптимизированный JavaScript файл для production
+├── dist/                  # Папка для production сборки
+│   ├── index.html         # Оптимизированный HTML-файл
+│   └── main.[hash].js     # Оптимизированный JavaScript-файл
 │
+├── .husky/                # Конфигурация pre-commit hook
 ├── .eslintrc.json         # Конфигурация ESLint
 ├── .prettierrc            # Конфигурация Prettier
 ├── webpack.config.js      # Конфигурация Webpack
 ├── package.json           # Конфигурация проекта
-│
-├── node_modules/          # Папка с зависимостями проекта
-│                          # Автоматически создается при установке пакетов с помощью npm install
-│
-└── .husky/                # Настройки pre-commit hook для проверки ESLint и форматирования кода
+├── README.md              # Документация
+├── node_modules/          # Зависимости проекта
 
-└── package.json          # Конфигурация проекта
 ```
 
 ### 4. Качество кода
@@ -171,4 +174,4 @@ simple-calculator/
 
 ### 5. Деплой
 
-Приложение было задеплоено с использованием GitHub Pages и доступно по следующему адресу: https://lexasby.github.io/Simple-Calculator/.
+Приложение было задеплоено с использованием GitHub Pages и доступно по следующему адресу: https://lexasby.github.io/Custom-Calculator/.
