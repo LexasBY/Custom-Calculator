@@ -28,6 +28,46 @@ export class SetOperationCommand extends Command {
   }
 }
 
+export class InputDecimalCommand extends Command {
+  constructor(calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute() {
+    if (this.calculator.isSecondValueInput) {
+      if (!this.calculator.secondValue.includes(".")) {
+        this.calculator.secondValue += ".";
+      }
+    } else {
+      if (!this.calculator.firstValue.includes(".")) {
+        this.calculator.firstValue += ".";
+      }
+    }
+  }
+}
+
+export class InputPercentCommand extends Command {
+    constructor(calculator) {
+      super();
+      this.calculator = calculator;
+    }
+  
+    execute() {
+      return this.calculator.processPercentage();
+    }
+  }
+
+  export class InputToggleSignCommand extends Command {
+    constructor(calculator) {
+      super();
+      this.calculator = calculator;
+    }
+  
+    execute() {
+      return this.calculator.toggleSign();
+    }
+  }
 export class EqualsCommand extends Command {
   constructor(calculator) {
     super();
@@ -40,22 +80,19 @@ export class EqualsCommand extends Command {
 }
 
 export class ToggleThemeCommand extends Command {
-    constructor(bodyElement, themeToggleElement) {
-      super(); // Вызываем конструктор родителя
-      this.body = bodyElement; // Элемент <body>, где будет применяться тема
-      this.themeToggle = themeToggleElement; // Сам переключатель
-    }
-  
-    execute() {
-        console.log('Текущий статус переключателя:', this.themeToggle.checked);
-      if (this.themeToggle.checked) {
-        // Устанавливаем тёмную тему
-        this.body.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        // Устанавливаем светлую тему
-        this.body.classList.remove('dark-theme');
-        localStorage.setItem('theme', 'light');
-      }
+  constructor(bodyElement, themeToggleElement) {
+    super(); 
+    this.body = bodyElement; 
+    this.themeToggle = themeToggleElement; 
+  }
+
+  execute() {
+    if (this.themeToggle.checked) {
+      this.body.classList.add("dark-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      this.body.classList.remove("dark-theme");
+      localStorage.setItem("theme", "light");
     }
   }
+}

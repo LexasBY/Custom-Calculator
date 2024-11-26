@@ -5,6 +5,9 @@ import {
   SetOperationCommand,
   EqualsCommand,
   ToggleThemeCommand,
+  InputDecimalCommand,
+  InputPercentCommand,
+  InputToggleSignCommand,
 } from "./command.js";
 
 // Создаем калькулятор и обработчик команд
@@ -32,17 +35,50 @@ document.querySelectorAll(".number").forEach((button) => {
 // Обработка выбора операции
 document.querySelectorAll(".operator").forEach((button) => {
   button.addEventListener("click", () => {
-    const command = new SetOperationCommand(calculator, button.textContent);
-    invoker.executeCommand(command);
-    updateDisplay(button.textContent);
+    try {
+      const command = new SetOperationCommand(calculator, button.textContent);
+      invoker.executeCommand(command);
+
+      const displayValue = calculator.firstValue;
+      updateDisplay(displayValue);
+    } catch (error) {
+      console.error("Ошибка при выборе операции:", error.message);
+      updateDisplay("Error");
+    }
   });
+});
+
+// Обработка процентов
+document.getElementById("percent").addEventListener("click", () => {
+  const command = new InputPercentCommand(calculator);
+  invoker.executeCommand(command);
+  const displayValue = calculator.isSecondValueInput
+    ? calculator.secondValue
+    : calculator.firstValue;
+  updateDisplay(displayValue);
+});
+
+// Обработка смены знака
+document.getElementById("toggle-sign").addEventListener("click", () => {
+  const command = new InputToggleSignCommand(calculator);
+  invoker.executeCommand(command);
+  const displayValue = calculator.isSecondValueInput
+    ? calculator.secondValue
+    : calculator.firstValue;
+  updateDisplay(displayValue);
 });
 
 // Обработка "="
 document.getElementById("result").addEventListener("click", () => {
-  const command = new EqualsCommand(calculator);
-  const result = invoker.executeCommand(command);
-  updateDisplay(result);
+  try {
+    const command = new EqualsCommand(calculator);
+    const result = invoker.executeCommand(command);
+
+    updateDisplay(result);
+  } catch (error) {
+    console.error("Ошибка при вычислении:", error.message);
+    updateDisplay("Error");
+  }
 });
 
 // Обработка сброса
@@ -63,4 +99,15 @@ if (localStorage.getItem("theme") === "dark") {
 themeToggle.addEventListener("change", () => {
   const command = new ToggleThemeCommand(body, themeToggle);
   invoker.executeCommand(command);
+});
+
+// Обработка ввода точки
+commaButton.addEventListener("click", () => {
+  const command = new InputDecimalCommand(calculator);
+  invoker.executeCommand(command);
+  updateDisplay(
+    calculator.isSecondValueInput
+      ? calculator.secondValue
+      : calculator.firstValue
+  );
 });

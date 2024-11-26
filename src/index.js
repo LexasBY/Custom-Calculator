@@ -1,5 +1,5 @@
-import './style.css'; // Подключение стилей
-import './modules/app.js'; // Основной модуль приложения
+import './style.css';
+import './modules/app.js';
 
 // import './style.css';
 // import { Calculator } from './calculator.js';
