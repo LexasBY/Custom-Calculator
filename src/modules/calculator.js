@@ -62,8 +62,9 @@ export class Calculator {
         this.result = num1 * num2;
         break;
       case "÷":
-        if (num2 === 0) {
+        if (num2 === 0) {            
           this.result = "Error"; 
+          throw new Error('Incorrect data for calculation');
         } else {
           this.result = num1 / num2;
         }
