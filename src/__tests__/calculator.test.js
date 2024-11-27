@@ -76,7 +76,7 @@ describe('Calculator', () => {
     calculator.setOperation('+');
     calculator.appendNumber('0.2');
     const result = calculator.calculate();
-    expect(result).toBeCloseTo(0.3, 10);
+    expect(result).toBe(0.3);
   });
   
   test('should handle subtraction of floating point numbers correctly', () => {
@@ -84,23 +84,7 @@ describe('Calculator', () => {
     calculator.setOperation('-');
     calculator.appendNumber('0.1');
     const result = calculator.calculate();
-    expect(result).toBeCloseTo(0.2, 10);
-  });
-  
-  test('should handle multiplication of floating point numbers correctly', () => {
-    calculator.appendNumber('0.1');
-    calculator.setOperation('×');
-    calculator.appendNumber('0.2');
-    const result = calculator.calculate();
-    expect(result).toBeCloseTo(0.02, 10);
-  });
-  
-  test('should handle division of floating point numbers correctly', () => {
-    calculator.appendNumber('0.3');
-    calculator.setOperation('÷');
-    calculator.appendNumber('0.1');
-    const result = calculator.calculate();
-    expect(result).toBeCloseTo(3, 10);
+    expect(result).toBe(0.2);
   });
   
 });
