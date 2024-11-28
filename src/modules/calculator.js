@@ -6,6 +6,7 @@ export class Calculator {
     this.result = null;
     this.isSecondValueInput = false;
     this.finish = false;
+    this.memory = 0;
   }
 
   appendNumber(number) {
@@ -114,11 +115,134 @@ export class Calculator {
     }
   }
 
+  clearMemory() {
+    this.memory = 0;
+  }
+
+  addToMemory(value) {
+    this.memory += value;
+  }
+
+  subtractFromMemory(value) {
+    this.memory -= value;
+  }
+
+  recallMemory() {
+    return this.memory;
+  }
+
   reset() {
     this.firstValue = "";
     this.secondValue = "";
     this.currentOperator = "";
     this.result = null;
     this.isSecondValueInput = false;
+  }
+
+  square() {
+    const value = parseFloat(this.firstValue);
+    this.result = value ** 2;
+    this.firstValue = this.result.toString();
+  }
+
+  cube() {
+    const value = parseFloat(this.firstValue);
+    this.result = value ** 3;
+    this.firstValue = this.result.toString();
+  }
+
+  power() {
+    const base = parseFloat(this.firstValue);
+    const exponent = parseFloat(this.secondValue);
+    this.result = base ** exponent;
+    this.firstValue = this.result.toString();
+    this.secondValue = "";
+    this.currentOperator = "";
+    this.isSecondValueInput = false;
+    this.finish = true;
+
+    return this.result;
+  }
+
+  powerOfTen() {
+    const exponent = parseFloat(this.firstValue);
+    this.result = 10 ** exponent;
+    this.firstValue = this.result.toString();
+    this.finish = true;
+
+    return this.result;
+  }
+
+  oneOnX() {
+    const value = parseFloat(this.firstValue);
+
+    this.result = 1 / value;
+    this.firstValue = this.result.toString();
+    this.finish = true;
+    return this.result;
+  }
+
+  calculatePowerRoot(number, power) {
+    let powValue = number / power;
+    let temp = 0;
+    while (powValue !== temp) {
+      temp = powValue;
+      powValue = (number / temp ** (power - 1) + temp * (power - 1)) / power;
+    }
+    return powValue;
+  }
+
+  squareRoot() {
+    const value = parseFloat(this.firstValue);
+
+    this.result = this.calculatePowerRoot(value, 2);
+    this.firstValue = this.result.toString();
+    this.finish = true;
+
+    return this.result;
+  }
+
+  cubeRoot() {
+    const value = parseFloat(this.firstValue);
+    this.result = this.calculatePowerRoot(value, 3);
+    this.firstValue = this.result.toString();
+    this.finish = true;
+
+    return this.result;
+  }
+
+  nthRoot() {
+    const base = parseFloat(this.firstValue);
+    const degree = parseFloat(this.secondValue);
+
+    if (isNaN(base) || isNaN(degree) || degree <= 0) {
+      throw new Error("Invalid input for root");
+    }
+
+    this.result = this.calculatePowerRoot(base, degree);
+    this.firstValue = this.result.toString();
+    this.secondValue = "";
+    this.finish = true;
+
+    return this.result;
+  }
+
+  factorial() {
+    const value = parseInt(this.firstValue, 10);
+
+    if (isNaN(value) || value < 0) {
+      throw new Error("Invalid input for factorial");
+    }
+
+    let result = 1;
+    for (let i = 1; i <= value; i++) {
+      result *= i;
+    }
+
+    this.result = result;
+    this.firstValue = this.result.toString();
+    this.finish = true;
+
+    return this.result;
   }
 }

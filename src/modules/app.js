@@ -8,11 +8,24 @@ import {
   InputDecimalCommand,
   InputPercentCommand,
   InputToggleSignCommand,
+  MemoryClearCommand,
+  MemoryAddCommand,
+  MemorySubtractCommand,
+  MemoryRecallCommand,
+  SquareCommand,
+  CubeCommand,
+  PowerCommand,
+  PowerOfTenCommand,
+  OneOnXCommand,
+  SquareRootCommand,
+  CubeRootCommand,
+  NthRootCommand,
+  FactorialCommand,
 } from "./command.js";
 
-// Создаем калькулятор и обработчик команд
+// калькулятор и обработчик команд
 const calculator = new Calculator();
-const invoker = new CommandInvoker();
+const invoker = new CommandInvoker(updateDisplay);
 const display = document.querySelector(".display");
 
 function updateDisplay(value) {
@@ -68,16 +81,136 @@ document.getElementById("toggle-sign").addEventListener("click", () => {
   updateDisplay(displayValue);
 });
 
+// Обработка возведения в квадрат
+
+document.getElementById("square").addEventListener("click", () => {
+  const command = new SquareCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+  } catch (error) {
+    console.error(error.message);
+    display.value = "Error";
+  }
+});
+
+// Обработка возведения в куб
+
+document.getElementById("сube").addEventListener("click", () => {
+  const command = new CubeCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+  } catch (error) {
+    console.error(error.message);
+    display.value = "Error";
+  }
+});
+
+// Обработка x в степени y
+
+document.getElementById("power").addEventListener("click", () => {
+  const command = new SetOperationCommand(calculator, "^");
+  invoker.executeCommand(command);
+  updateDisplay(calculator.firstValue);
+});
+
+// Обработка 10 в степени x
+
+document.getElementById("powerOfTen").addEventListener("click", () => {
+  const command = new PowerOfTenCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+    updateDisplay(calculator.firstValue);
+  } catch (error) {
+    console.error(error.message);
+    updateDisplay("Error");
+  }
+});
+
+// Обработка 1/x
+
+document.getElementById("one-on-x").addEventListener("click", () => {
+  const command = new OneOnXCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+    updateDisplay(calculator.firstValue);
+  } catch (error) {
+    console.error(error.message);
+    updateDisplay("Error");
+  }
+});
+
+// Обработка корня квадратного
+document.getElementById("square-root").addEventListener("click", () => {
+  const command = new SquareRootCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+    updateDisplay(calculator.firstValue);
+  } catch (error) {
+    console.error(error.message);
+    updateDisplay("Error");
+  }
+});
+// Обработка корня кубического
+document.getElementById("cube-root").addEventListener("click", () => {
+  const command = new CubeRootCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+    updateDisplay(calculator.firstValue);
+  } catch (error) {
+    console.error(error.message);
+    updateDisplay("Error");
+  }
+});
+
+// Обработка корня степени y
+document.getElementById("nth-root").addEventListener("click", () => {
+  const command = new SetOperationCommand(calculator, "root");
+  invoker.executeCommand(command);
+  updateDisplay(calculator.firstValue);
+});
+
+// Обработка факториала
+
+document.getElementById("factorial").addEventListener("click", () => {
+  const command = new FactorialCommand(calculator);
+  try {
+    invoker.executeCommand(command);
+    updateDisplay(calculator.firstValue);
+  } catch (error) {
+    console.error(error.message);
+    updateDisplay("Error");
+  }
+});
+
 // Обработка "="
 document.getElementById("result").addEventListener("click", () => {
-  try {
+  if (calculator.currentOperator === "root") {
+    const command = new NthRootCommand(calculator);
+    try {
+      invoker.executeCommand(command);
+      updateDisplay(calculator.result);
+    } catch (error) {
+      console.error(error.message);
+      updateDisplay("Error");
+    }
+  } else if (calculator.currentOperator === "^") {
+    const command = new PowerCommand(calculator);
+    try {
+      invoker.executeCommand(command);
+      updateDisplay(calculator.result);
+    } catch (error) {
+      console.error(error.message);
+      updateDisplay("Error");
+    }
+  } else {
     const command = new EqualsCommand(calculator);
-    const result = invoker.executeCommand(command);
-
-    updateDisplay(result);
-  } catch (error) {
-    console.error("Ошибка при вычислении:", error.message);
-    updateDisplay("Error");
+    try {
+      invoker.executeCommand(command);
+      updateDisplay(calculator.result);
+    } catch (error) {
+      console.error(error.message);
+      updateDisplay("Error");
+    }
   }
 });
 
@@ -110,4 +243,41 @@ commaButton.addEventListener("click", () => {
       ? calculator.secondValue
       : calculator.firstValue
   );
+});
+
+// Обработка операций с памятью
+
+document.getElementById("mc").addEventListener("click", () => {
+  const command = new MemoryClearCommand(calculator);
+  invoker.executeCommand(command);
+  console.log("Memory cleared");
+});
+
+document.getElementById("m-plus").addEventListener("click", () => {
+  const currentValue = parseFloat(display.value);
+  if (!isNaN(currentValue)) {
+    const command = new MemoryAddCommand(calculator, currentValue);
+    invoker.executeCommand(command);
+    console.log(`Added to memory: ${currentValue}`);
+  }
+});
+
+document.getElementById("m-minus").addEventListener("click", () => {
+  const currentValue = parseFloat(display.value);
+  if (!isNaN(currentValue)) {
+    const command = new MemorySubtractCommand(calculator, currentValue);
+    invoker.executeCommand(command);
+    console.log(`Subtracted from memory: ${currentValue}`);
+  }
+});
+
+document.getElementById("mr").addEventListener("click", () => {
+  const command = new MemoryRecallCommand(calculator);
+  const memoryValue = invoker.executeCommand(command);
+  display.value = memoryValue;
+  console.log(`Recalled from memory: ${memoryValue}`);
+});
+
+document.getElementById("undo").addEventListener("click", () => {
+  invoker.undo();
 });
