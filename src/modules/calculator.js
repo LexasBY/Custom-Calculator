@@ -120,16 +120,27 @@ export class Calculator {
   }
 
   addToMemory(value) {
-    this.memory += value;
-  }
+    const number = parseFloat(value || this.firstValue || 0);
+    this.memory += number;
+}
 
-  subtractFromMemory(value) {
-    this.memory -= value;
-  }
+subtractFromMemory(value) {
+    const number = parseFloat(value || this.firstValue || 0);
+    this.memory -= number;
+}
 
-  recallMemory() {
-    return this.memory;
-  }
+recallMemory() {
+    if (!isNaN(this.memory)) {
+        if (this.isSecondValueInput) {
+            this.secondValue = this.memory.toString();
+        } else {
+            this.firstValue = this.memory.toString();
+        }
+        this.finish = false;
+    }
+    return this.memory; 
+}
+
 
   reset() {
     this.firstValue = "";
@@ -175,7 +186,12 @@ export class Calculator {
 
   oneOnX() {
     const value = parseFloat(this.firstValue);
-
+    if (isNaN(value)) {
+        throw new Error("Invalid input for reciprocal");
+    }
+    if (value === 0) {
+        throw new Error("Division by zero is not allowed");
+    }
     this.result = 1 / value;
     this.firstValue = this.result.toString();
     this.finish = true;
@@ -194,7 +210,9 @@ export class Calculator {
 
   squareRoot() {
     const value = parseFloat(this.firstValue);
-
+    if (isNaN(value) || value < 0) {
+        throw new Error("Invalid input for square root");
+      }
     this.result = this.calculatePowerRoot(value, 2);
     this.firstValue = this.result.toString();
     this.finish = true;

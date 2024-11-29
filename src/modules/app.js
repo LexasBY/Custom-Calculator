@@ -254,29 +254,30 @@ document.getElementById("mc").addEventListener("click", () => {
 });
 
 document.getElementById("m-plus").addEventListener("click", () => {
-  const currentValue = parseFloat(display.value);
-  if (!isNaN(currentValue)) {
-    const command = new MemoryAddCommand(calculator, currentValue);
+    const command = new MemoryAddCommand(calculator, calculator.firstValue || "0");
     invoker.executeCommand(command);
-    console.log(`Added to memory: ${currentValue}`);
-  }
+    console.log(`Added to memory: ${calculator.firstValue}`);
 });
 
 document.getElementById("m-minus").addEventListener("click", () => {
-  const currentValue = parseFloat(display.value);
-  if (!isNaN(currentValue)) {
-    const command = new MemorySubtractCommand(calculator, currentValue);
+    const command = new MemorySubtractCommand(calculator, calculator.firstValue || "0");
     invoker.executeCommand(command);
-    console.log(`Subtracted from memory: ${currentValue}`);
-  }
+    console.log(`Subtracted from memory: ${calculator.firstValue}`);
 });
 
+
 document.getElementById("mr").addEventListener("click", () => {
-  const command = new MemoryRecallCommand(calculator);
-  const memoryValue = invoker.executeCommand(command);
-  display.value = memoryValue;
-  console.log(`Recalled from memory: ${memoryValue}`);
+    const command = new MemoryRecallCommand(calculator);
+    invoker.executeCommand(command);
+
+    const displayValue = calculator.isSecondValueInput
+        ? calculator.secondValue
+        : calculator.firstValue;
+
+    updateDisplay(displayValue);
+    console.log(`Recalled from memory: ${displayValue}`);
 });
+
 
 document.getElementById("undo").addEventListener("click", () => {
   invoker.undo();

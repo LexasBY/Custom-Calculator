@@ -86,5 +86,64 @@ describe('Calculator', () => {
     const result = calculator.calculate();
     expect(result).toBe(0.2);
   });
-  
+
+  test('Square: should return square of a number', () => {
+    calculator.firstValue = '4';
+    calculator.square();
+    expect(parseFloat(calculator.result)).toBe(16);
+  });
+
+  test('Cube: should return cube of a number', () => {
+    calculator.firstValue = '3';
+    calculator.cube();
+    expect(parseFloat(calculator.result)).toBe(27);
+  });
+
+  test('Power: should return x raised to the power y', () => {
+    calculator.firstValue = '2';
+    calculator.secondValue = '3';
+    calculator.power();
+    expect(parseFloat(calculator.result)).toBe(8);
+  });
+
+  test('1/x: should return reciprocal of a number', () => {
+    calculator.firstValue = '4';
+    calculator.oneOnX();
+    expect(parseFloat(calculator.result)).toBe(0.25);
+  });
+
+  test('Square Root: should return square root of a number', () => {
+    calculator.firstValue = '16';
+    calculator.squareRoot();
+    expect(parseFloat(calculator.result)).toBe(4);
+  });
+
+  test('Cube Root: should return cube root of a number', () => {
+    calculator.firstValue = '27';
+    calculator.cubeRoot();
+    expect(parseFloat(calculator.result)).toBe(3);
+  });
+
+  test('Nth Root: should return nth root of a number', () => {
+    calculator.firstValue = '27';
+    calculator.secondValue = '3';
+    calculator.nthRoot();
+    expect(parseFloat(calculator.result)).toBe(3);
+  });
+
+  test('Factorial: should return factorial of a number', () => {
+    calculator.firstValue = '5';
+    calculator.factorial();
+    expect(parseFloat(calculator.result)).toBe(120);
+  });
+
+  test('Square Root: should throw error for negative numbers', () => {
+    calculator.firstValue = '-4';
+    expect(() => calculator.squareRoot()).toThrow('Invalid input for square root');
+  });
+
+  test('Reciprocal: should throw error for 0', () => {
+    calculator.firstValue = '0';
+    expect(() => calculator.oneOnX()).toThrow('Division by zero is not allowed');
+  });
 });
