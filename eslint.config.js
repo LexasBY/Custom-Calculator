@@ -1,3 +1,5 @@
+import prettierPlugin from "eslint-plugin-prettier";
+
 export default [
   {
     ignores: ["dist"],
@@ -8,9 +10,13 @@ export default [
       ecmaVersion: "latest",
       sourceType: "module",
     },
+    plugins: {
+      prettier: prettierPlugin,
+    },
     rules: {
       "no-unused-vars": "warn",
       "no-console": "off",
+      "prettier/prettier": "error",
     },
   },
 ];

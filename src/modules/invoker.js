@@ -13,7 +13,7 @@ export class CommandInvoker {
     console.log(this.history);
     if (command.calculator && this.updateDisplay) {
       this.updateDisplay(
-        command.calculator.firstValue || command.calculator.result || 0
+        command.calculator.firstValue || command.calculator.result || 0,
       );
     }
 
@@ -26,7 +26,7 @@ export class CommandInvoker {
       command.undo();
       if (command.calculator && this.updateDisplay) {
         this.updateDisplay(
-          command.calculator.firstValue || command.calculator.result || 0
+          command.calculator.firstValue || command.calculator.result || 0,
         );
       }
       console.log("Undo executed");

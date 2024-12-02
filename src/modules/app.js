@@ -40,7 +40,7 @@ document.querySelectorAll(".number").forEach((button) => {
     updateDisplay(
       calculator.isSecondValueInput
         ? calculator.secondValue
-        : calculator.firstValue
+        : calculator.firstValue,
     );
   });
 });
@@ -241,7 +241,7 @@ commaButton.addEventListener("click", () => {
   updateDisplay(
     calculator.isSecondValueInput
       ? calculator.secondValue
-      : calculator.firstValue
+      : calculator.firstValue,
   );
 });
 
@@ -256,7 +256,7 @@ document.getElementById("mc").addEventListener("click", () => {
 document.getElementById("m-plus").addEventListener("click", () => {
   const command = new MemoryAddCommand(
     calculator,
-    calculator.firstValue || "0"
+    calculator.firstValue || "0",
   );
   invoker.executeCommand(command);
   console.log(`Added to memory: ${calculator.firstValue}`);
@@ -265,7 +265,7 @@ document.getElementById("m-plus").addEventListener("click", () => {
 document.getElementById("m-minus").addEventListener("click", () => {
   const command = new MemorySubtractCommand(
     calculator,
-    calculator.firstValue || "0"
+    calculator.firstValue || "0",
   );
   invoker.executeCommand(command);
   console.log(`Subtracted from memory: ${calculator.firstValue}`);
