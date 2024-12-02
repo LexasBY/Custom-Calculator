@@ -27,7 +27,6 @@ import {
 const calculator = new Calculator();
 const invoker = new CommandInvoker(updateDisplay);
 const display = document.querySelector(".display");
-const letter = 0;
 function updateDisplay(value) {
   display.value = value || "0";
 }

@@ -14,7 +14,7 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      "no-unused-vars": "warn",
+      "no-unused-vars": "error",
       "no-console": "off",
       "prettier/prettier": "error",
     },
