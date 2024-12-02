@@ -10,6 +10,7 @@
     "build": "webpack --mode production",
     "prepare": "husky install",
     "lint": "eslint ./src",
+    "precommit": "npm run lint && npm test",
     "format": "prettier --write ./src/**/*.{js,css,html}",
     "deploy": "gh-pages -d dist"
   },
@@ -41,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run precommit"
     }
   },
   "lint-staged": {
