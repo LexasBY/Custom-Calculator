@@ -13,7 +13,7 @@ export default (env, argv) => {
       filename: 'main.[contenthash].js',
       path: path.resolve(process.cwd(), 'dist'),
       clean: true,
-      publicPath: '/Custom-Calculator/',
+      publicPath: isProduction ? '/Custom-Calculator/' : '/',
     },
     module: {
       rules: [

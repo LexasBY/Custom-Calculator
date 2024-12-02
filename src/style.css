@@ -141,6 +141,11 @@ button#rad {
   color: #fff;
 }
 
+.dark-theme button:hover {
+  background-color: #666;;
+  color: #fff;
+}
+
 .dark-theme button.clear_btn:hover {
   background-color: #f42a2a;
 }

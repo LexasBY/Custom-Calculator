@@ -41,6 +41,7 @@ custom-calculator/
 │   ├── index.js           # Main entry point of the application
 │   ├── index.html         # HTML template
 │   ├── style.css          # Main stylesheet
+│   ├── __tests__          # Folder with tests
 │   ├── modules/           # Folder with application modules
 │   │   ├── app.js         # Manages application events
 │   │   ├── calculator.js  # Core calculator logic
@@ -56,6 +57,7 @@ custom-calculator/
 ├── .prettierrc            # Prettier configuration
 ├── webpack.config.js      # Webpack configuration
 ├── package.json           # Project configuration
+├── jest.config.js         # Jest configuration
 ├── README.md              # Documentation
 ├── node_modules/          # Project dependencies
 
@@ -130,6 +132,7 @@ custom-calculator/
 │   ├── index.js           # Главная точка входа приложения
 │   ├── index.html         # HTML-шаблон
 │   ├── style.css          # Основной файл стилей
+│   ├── __tests__          # Папка с файлами тестов
 │   ├── modules/           # Папка с модулями приложения
 │   │   ├── app.js         # Управление событиями приложения
 │   │   ├── calculator.js  # Основная логика работы калькулятора
@@ -145,6 +148,7 @@ custom-calculator/
 ├── .prettierrc            # Конфигурация Prettier
 ├── webpack.config.js      # Конфигурация Webpack
 ├── package.json           # Конфигурация проекта
+├── jest.config.js         # Конфигурация Jest
 ├── README.md              # Документация
 ├── node_modules/          # Зависимости проекта
 
