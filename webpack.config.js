@@ -1,19 +1,19 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 export default (env, argv) => {
-  const isProduction = argv.mode === 'production';
+  const isProduction = argv.mode === "production";
 
   return {
-    mode: isProduction ? 'production' : 'development',
-    entry: './src/index.js',
+    mode: isProduction ? "production" : "development",
+    entry: "./src/index.js",
     output: {
-      filename: 'main.[contenthash].js',
-      path: path.resolve(process.cwd(), 'dist'),
+      filename: "main.[contenthash].js",
+      path: path.resolve(process.cwd(), "dist"),
       clean: true,
-      publicPath: isProduction ? '/Custom-Calculator/' : '/',
+      publicPath: isProduction ? "/Custom-Calculator/" : "/",
     },
     module: {
       rules: [
@@ -21,18 +21,21 @@ export default (env, argv) => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
+            loader: "babel-loader",
           },
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          use: ["style-loader", "css-loader"],
         },
       ],
     },
+    resolve: {
+      extensions: [".js", ".json"],
+    },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: "./src/index.html",
         minify: isProduction
           ? {
               removeComments: true,
@@ -54,7 +57,7 @@ export default (env, argv) => {
       minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
     devServer: {
-      static: './dist',
+      static: "./dist",
       hot: true,
       compress: true,
       port: 8080,

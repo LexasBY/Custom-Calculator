@@ -21,7 +21,7 @@ import {
   CubeRootCommand,
   NthRootCommand,
   FactorialCommand,
-} from "./command.js";
+} from "./commands/index.js";
 
 // калькулятор и обработчик команд
 const calculator = new Calculator();
@@ -81,7 +81,6 @@ document.getElementById("toggle-sign").addEventListener("click", () => {
 });
 
 // Обработка возведения в квадрат
-
 document.getElementById("square").addEventListener("click", () => {
   const command = new SquareCommand(calculator);
   try {
@@ -93,7 +92,6 @@ document.getElementById("square").addEventListener("click", () => {
 });
 
 // Обработка возведения в куб
-
 document.getElementById("сube").addEventListener("click", () => {
   const command = new CubeCommand(calculator);
   try {
@@ -105,7 +103,6 @@ document.getElementById("сube").addEventListener("click", () => {
 });
 
 // Обработка x в степени y
-
 document.getElementById("power").addEventListener("click", () => {
   const command = new SetOperationCommand(calculator, "^");
   invoker.executeCommand(command);
@@ -113,7 +110,6 @@ document.getElementById("power").addEventListener("click", () => {
 });
 
 // Обработка 10 в степени x
-
 document.getElementById("powerOfTen").addEventListener("click", () => {
   const command = new PowerOfTenCommand(calculator);
   try {
@@ -126,7 +122,6 @@ document.getElementById("powerOfTen").addEventListener("click", () => {
 });
 
 // Обработка 1/x
-
 document.getElementById("one-on-x").addEventListener("click", () => {
   const command = new OneOnXCommand(calculator);
   try {
@@ -149,6 +144,7 @@ document.getElementById("square-root").addEventListener("click", () => {
     updateDisplay("Error");
   }
 });
+
 // Обработка корня кубического
 document.getElementById("cube-root").addEventListener("click", () => {
   const command = new CubeRootCommand(calculator);
@@ -169,7 +165,6 @@ document.getElementById("nth-root").addEventListener("click", () => {
 });
 
 // Обработка факториала
-
 document.getElementById("factorial").addEventListener("click", () => {
   const command = new FactorialCommand(calculator);
   try {
@@ -245,7 +240,6 @@ commaButton.addEventListener("click", () => {
 });
 
 // Обработка операций с памятью
-
 document.getElementById("mc").addEventListener("click", () => {
   const command = new MemoryClearCommand(calculator);
   invoker.executeCommand(command);
@@ -282,6 +276,7 @@ document.getElementById("mr").addEventListener("click", () => {
   console.log(`Recalled from memory: ${displayValue}`);
 });
 
+// Обработка операции Undo
 document.getElementById("undo").addEventListener("click", () => {
   invoker.undo();
 });

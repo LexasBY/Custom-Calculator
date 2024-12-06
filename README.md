@@ -45,7 +45,9 @@ custom-calculator/
 │   ├── modules/           # Folder with application modules
 │   │   ├── app.js         # Manages application events
 │   │   ├── calculator.js  # Core calculator logic
-│   │   ├── command.js     # Implementation of the Command pattern
+│   │   ├── commands/      # Folder containing commands implementing the Command pattern
+│   │   │   ├── index.js   # Central export of all commands
+│   │   │   ├── ...        # Files with implementations of individual commands (e.g., MemoryCommands.js, PowerCommands.js)
 │   │   └── invoker.js     # Logic for handling commands
 │
 ├── dist/                  # Folder for production build
@@ -136,7 +138,9 @@ custom-calculator/
 │   ├── modules/           # Папка с модулями приложения
 │   │   ├── app.js         # Управление событиями приложения
 │   │   ├── calculator.js  # Основная логика работы калькулятора
-│   │   ├── command.js     # Реализация паттерна Command
+│   │   ├── commands/      # Папка с командами, реализующими паттерн Command
+│   │   │   ├── index.js   # Центральный экспорт всех команд
+│   │   │   ├── ...        # Файлы с реализацией отдельных команд (например, MemoryCommands.js, PowerCommands.js)
 │   │   └── invoker.js     # Логика обработки команд
 │
 ├── dist/                  # Папка для production сборки
